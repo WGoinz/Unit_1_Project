@@ -1,0 +1,1 @@
+console.log("Start of Simon Says")
