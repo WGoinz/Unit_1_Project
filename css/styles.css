@@ -1,5 +1,10 @@
 body {
     background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 800px;
 }
 
 /* Shapes for CSS
@@ -40,4 +45,10 @@ http://jsfiddle.net/mitrosin/xb9edv64/
     border-radius: 100px 0 0 0;
     -moz-border-radius: 100px 0 0 0;
     -webkit-border-radius: 100px 0 0 0;
+}
+
+.top {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
 }
