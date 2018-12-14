@@ -6,9 +6,19 @@ let selectRed = document.getElementById('red')
 let selectBlue = document.getElementById('blue')
 let playerScore = 0
 let cpuScore = 0
-let playerSequence = []
-let cpuSequence = []
+let playerSequence
+let playerChoose = []
+let cpuSequence
+let cpuChoose = ['green', 'red', 'blue', 'yellow']
+let randomColor
 
+function pickRandomColor() {
+    playerSequence = []
+    cpuSequence = []
+    randomColor = cpuChoose[Math.floor(Math.random() * cpuChoose.length)]
+    cpuSequence.push(randomColor)
+    return randomColor
+}
 
 function addSelectedClass() {
     this.classList.add('selected')
