@@ -14,25 +14,44 @@ let cpuSequence = []
 let cpuChoose = ['green', 'red', 'blue', 'yellow']
 let randomColor
 
+function stopInt() {
+
+}
+
 function pickRandomColor() {
     console.log('Game has begun')
     randomColor = cpuChoose[Math.floor(Math.random() * cpuChoose.length)]
     cpuSequence.push(randomColor)
-    let selectRandom = document.getElementById(randomColor)
-    function addSelectedClass() {
-        selectRandom.classList.add('selected')
-    }
-    function removeSelectedClass() {
-        selectRandom.classList.remove('selected')
-    }
-    let startInterval = setInterval(addSelectedClass, 500)
-    let stopInterval = clearInterval(startInterval)
-    // selectRandom.classList.add('selected')
-    // selectRandom.classList.remove('selected')
+
     console.log(randomColor)
     console.log(cpuSequence)
+    function showSequence() {
+        for (i = 0; i < cpuSequence.length; i++) {
+            let selectRandom = document.getElementById(cpuSequence[i])
+            function addSelectedClass() {
+                selectRandom.classList.add('selected')
+            }
+            let startInterval = setInterval(addSelectedClass, 1000)
+            setTimeout(function () {
+                clearInterval(startInterval)
+                selectRandom.classList.remove('selected')
+            }, 2000)
+        }
+    }
+
+    showSequence()
     return randomColor
 
+}
+
+function showSequence() {
+    for (i = 0; i < cpuSequence.length; i++) {
+        let startInterval = setInterval(addSelectedClass, 1000)
+        setTimeout(function () {
+            clearInterval(startInterval)
+            selectRandom.classList.remove('selected')
+        }, 2000)
+    }
 }
 
 // function addSelectedClass() {
