@@ -36,7 +36,7 @@ function buttonIsClicked() {
     setTimeout(function () {
         clearInterval(buttonInterval)
         selectedButton.classList.remove('clicked')
-    }, 800)
+    }, 200)
     playerSequence.push(this.getAttribute('data-color'))
     compareSequences()
 }
@@ -47,28 +47,35 @@ function compareSequences() {
     for (i = 0; i < cpuSequence.length; i++)
         if (playerSequence[i] === cpuSequence[i]) {
             playerScore++
-            console.log('The score is' + playerScore)
+            console.log('The score is ' + playerScore)
             pickRandomColor()
         } else {
             alert('not equal')
             playerSequence = []
             cpuSequence = []
-            pickRandomColor()
+            // pickRandomColor()
         }
+    // pickRandomColor()
 }
 
 function showSequence() {
     for (i = 0; i < cpuSequence.length; i++) {
         let selectRandom = document.getElementById(cpuSequence[i])
+        console.log(selectRandom)
         function addSelectedClass() {
             selectRandom.classList.add('selected')
         }
-        let startInterval = setInterval(addSelectedClass, 1000)
+        let startInterval = setInterval(addSelectedClass, 500)
         setTimeout(function () {
             clearInterval(startInterval)
             selectRandom.classList.remove('selected')
-        }, 2000)
+        }, 1000)
     }
+    // for (var i = 1; i <= 10; i++) {
+    //     (function (index) {
+    //         setTimeout(function () { alert(index); }, i * 1000);
+    //     })(i);
+    // }
 
 }
 
