@@ -26,7 +26,17 @@ function pickRandomColor() {
 }
 
 function buttonIsClicked() {
-    this.classList.add('clicked')
+    let selectedButton = this
+    function addSelectedClass() {
+        selectedButton.classList.add('clicked')
+    }
+    let buttonInterval = setInterval(() => {
+        addSelectedClass()
+    }, 100);
+    setTimeout(function () {
+        clearInterval(buttonInterval)
+        selectedButton.classList.remove('clicked')
+    }, 800)
     playerSequence.push(this.getAttribute('data-color'))
     compareSequences()
 }
