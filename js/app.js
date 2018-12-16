@@ -13,16 +13,21 @@ let playerChoose = []
 let cpuSequence = []
 let cpuChoose = ['green', 'red', 'blue', 'yellow']
 let randomColor
+let runStatus
+
 
 function pickRandomColor() {
     console.log('Game has begun')
     randomColor = cpuChoose[Math.floor(Math.random() * cpuChoose.length)]
     cpuSequence.push(randomColor)
-    console.log(randomColor)
-    console.log(cpuSequence)
+    console.log('Random color selected is ' + randomColor)
+    // console.log(cpuSequence)
     showSequence()
+}
 
-    return randomColor
+async function pickAgain() {
+    await showSequence()
+    pickRandomColor()
 }
 
 function buttonIsClicked() {
@@ -38,30 +43,57 @@ function buttonIsClicked() {
         selectedButton.classList.remove('clicked')
     }, 200)
     playerSequence.push(this.getAttribute('data-color'))
-    compareSequences()
+    let check = compareSequences(playerSequence, cpuSequence)
+    console.log('The check is ' + check)
 }
 
-function compareSequences() {
-    console.log(playerSequence)
-    console.log(cpuSequence)
-    for (i = 0; i < cpuSequence.length; i++)
-        if (playerSequence[i] === cpuSequence[i]) {
-            playerScore++
-            console.log('The score is ' + playerScore)
-            pickRandomColor()
-        } else {
-            alert('not equal')
-            playerSequence = []
-            cpuSequence = []
-            // pickRandomColor()
+function compareSequences(player, cpu) {
+    if (player.length != cpu.length) {
+        return runStatus = false
+    }
+    for (i = 0; i < player.length; i++) {
+        let sequenceName = player[i]
+        if (player[sequenceName] !== cpu[sequenceName]) {
+            return runStatus = false
         }
-    // pickRandomColor()
+    }
+    return runStatus = true
+    console.log(runStatus)
 }
+
+
+
+// function isEquivalent(a, b) {
+//     // Create arrays of property names
+//     var aProps = Object.getOwnPropertyNames(a);
+//     var bProps = Object.getOwnPropertyNames(b);
+
+//     // If number of properties is different,
+//     // objects are not equivalent
+//     if (aProps.length != bProps.length) {
+//         return false;
+//     }
+
+//     for (var i = 0; i < aProps.length; i++) {
+//         var propName = aProps[i];
+
+//         // If values of same property are not equal,
+//         // objects are not equivalent
+//         if (a[propName] !== b[propName]) {
+//             return false;
+//         }
+//     }
+
+//     // If we made it this far, objects
+//     // are considered equivalent
+//     return true;
+// }
+
 
 function showSequence() {
     for (i = 0; i < cpuSequence.length; i++) {
         let selectRandom = document.getElementById(cpuSequence[i])
-        console.log(selectRandom)
+        // console.log(selectRandom)
         function addSelectedClass() {
             selectRandom.classList.add('selected')
         }
@@ -69,7 +101,7 @@ function showSequence() {
         setTimeout(function () {
             clearInterval(startInterval)
             selectRandom.classList.remove('selected')
-        }, 1000)
+        }, (i + 1) * 1000)
     }
     // for (var i = 1; i <= 10; i++) {
     //     (function (index) {
