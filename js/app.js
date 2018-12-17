@@ -22,6 +22,8 @@ const audioRed = new Audio('../sounds/red_sound.wav')
 const gameEnd = new Audio('../sounds/failed_game3.wav')
 
 function startGame() {
+    playerSequence = []
+    cpuSequence = []
     audioStart.play()
     setTimeout(function () {
         pickRandomColor()
@@ -37,7 +39,7 @@ function pickRandomColor() {
         let index = i
         setTimeout(function () {
             showSequence(index)
-        }(i + 1) * 1000)
+        }(i + 1) * 1500)
     }
 
 }
@@ -50,6 +52,7 @@ function buttonIsClicked() {
     }, 1000)
     playSound()
     playerSequence.push(this.getAttribute('data-color'))
+    compareSequences()
     // let check = compareSequences()
     // console.log('The check is ' + check)
 }
@@ -59,10 +62,15 @@ function compareSequences() {
     for (i = 0; i < playerSequence.length; i++) {
         if (cpuSequence[i] !== playerSequence[i]) {
             console.log("You picked incorrectly")
-            gameEnd.play()
+            setTimeout(function () {
+                gameEnd.play()
+                alert('You lose, Press Start Game to play again')
+            }, 1000)
         } else if (cpuSequence.length === playerSequence.length) {
             console.log('Right answer')
-            pickRandomColor()
+            setTimeout(function () {
+                pickRandomColor()
+            }, 2000)
         }
     }
 }
