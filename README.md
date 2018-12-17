@@ -1,6 +1,6 @@
-THIS IS A README FOR THE PROJECT.
+#Unit 1 Project / Simon Says
 
-Sources:
-Async Functions -  https://www.youtube.com/watch?v=PoRJizFvM7s
-Animations - http://animista.net
-Style for Boxes - http://jsfiddle.net/mitrosin/xb9edv64/ 
+##Sources:
+1. Async Functions -  https://www.youtube.com/watch?v=PoRJizFvM7s
+2. Animations - http://animista.net
+3. Style for Boxes - http://jsfiddle.net/mitrosin/xb9edv64/ 
