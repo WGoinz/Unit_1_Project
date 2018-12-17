@@ -39,23 +39,19 @@ function pickRandomColor() {
             showSequence(index)
         }(i + 1) * 1000)
     }
+
 }
 
 function buttonIsClicked() {
     let selectedButton = this
-    function addSelectedClass() {
-        selectedButton.classList.add('clicked')
-    }
-    let buttonInterval = setInterval(() => {
-        addSelectedClass()
-    }, 100);
+    selectedButton.classList.toggle('clicked')
     setTimeout(function () {
-        clearInterval(buttonInterval)
-        selectedButton.classList.remove('clicked')
-    }, 200)
+        selectedButton.classList.toggle('clicked')
+    }, 1000)
+    playSound()
     playerSequence.push(this.getAttribute('data-color'))
-    let check = compareSequences()
-    console.log('The check is ' + check)
+    // let check = compareSequences()
+    // console.log('The check is ' + check)
 }
 
 function compareSequences() {
@@ -90,6 +86,7 @@ function showSequence(index) {
     setTimeout(function () {
         selectRandom.classList.toggle('selected')
     }, 500)
+    playSound()
     // console.log(selectRandom)
     // function addSelectedClass() {
     //     selectRandom.classList.add('selected')
