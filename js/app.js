@@ -5,6 +5,7 @@ let selectYellow = document.getElementById('yellow')
 let selectRed = document.getElementById('red')
 let selectBlue = document.getElementById('blue')
 let selectScore = document.getElementById('score')
+let flicker = document.getElementById('gameName')
 
 
 
@@ -23,17 +24,25 @@ const audioBlue = new Audio('../sounds/punch2.mp3')
 const audioRed = new Audio('../sounds/punch1.mp3')
 const gameEnd = new Audio('../sounds/you_lose.mp3')
 const continueGame = new Audio('../sounds/ready_go.mp3')
+const bgm = new Audio('../sounds/actionBGM.mp3')
 
 function startGame() {
+    document.getElementById('startGameButton').style.backgroundColor = "red"
+    setInterval(function () {
+        flicker.classList.toggle('text-flicker-in-glow')
+    })
+    bgm.play()
     console.log('Game has begun')
     playerSequence = []
     cpuSequence = []
     playerScore = 0
     selectScore.innerHTML = "CURRENT SCORE = 0"
-    audioStart.play()
+    setTimeout(function () {
+        audioStart.play()
+    }, 3000)
     setTimeout(function () {
         pickRandomColor()
-    }, 3000)
+    }, 6000)
 }
 
 function toggleClass() {
@@ -102,6 +111,7 @@ function compareSequences() {
             nextLevel = false
             console.log("You picked incorrectly at step " + i)
             setTimeout(function () {
+                flicker.classList.toggle('text-flicker-in-glow')
                 gameEnd.play()
                 selectScore.innerHTML = 'LOSER: FINAL SCORE = ' + playerScore
                 // alert('You lose, Press Start Game to play again')
