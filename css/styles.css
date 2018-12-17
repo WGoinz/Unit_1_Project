@@ -22,11 +22,24 @@ button {
     text-align: center;
     border: 5px solid black;
     background-color: white;
+    padding: 10px;
 }
 
-#startGameContainer {
+
+
+#info_container {
     display: flex;
     justify-content: center;
+}
+
+#score {
+    justify-content: center;
+    margin: 15px;
+    font-size: 40px;
+    text-align: center;
+    border: 5px solid black;
+    background-color: white;
+    padding: 10px;
 }
 
 .selected {

@@ -4,6 +4,8 @@ let selectGreen = document.getElementById('green')
 let selectYellow = document.getElementById('yellow')
 let selectRed = document.getElementById('red')
 let selectBlue = document.getElementById('blue')
+let selectScore = document.getElementById('score')
+
 
 
 let playerScore = 0
@@ -20,11 +22,13 @@ const audioYellow = new Audio('../sounds/yellow_sound.mp3')
 const audioBlue = new Audio('../sounds/punch2.mp3')
 const audioRed = new Audio('../sounds/punch1.mp3')
 const gameEnd = new Audio('../sounds/you_lose.mp3')
+const continueGame = new Audio('../sounds/replay.mp3')
 
 function startGame() {
     console.log('Game has begun')
     playerSequence = []
     cpuSequence = []
+    selectScore.innerHTML = "CURRENT SCORE = 0"
     audioStart.play()
     setTimeout(function () {
         pickRandomColor()
@@ -34,7 +38,7 @@ function startGame() {
 function toggleClass() {
     for (i = 0; i < cpuSequence.length; i++) {
         let selectRandom = document.getElementById(cpuSequence[i])
-        console.log(selectRandom)
+        // console.log(selectRandom)
 
         setTimeout(function () {
             console.log(i)
@@ -53,7 +57,7 @@ function toggleClass() {
             } else if (selectRandom.getAttribute('data-color') === 'yellow') {
                 audioYellow.play()
             }
-        }, i * 1200)
+        }, i * 800)
     }
 }
 
@@ -93,13 +97,20 @@ function buttonIsClicked() {
 function compareSequences() {
     for (i = 0; i < playerSequence.length; i++) {
         if (cpuSequence[i] !== playerSequence[i]) {
-            console.log("You picked incorrectly")
+            console.log("You picked incorrectly at step " + i)
             setTimeout(function () {
                 gameEnd.play()
-                alert('You lose, Press Start Game to play again')
+                selectScore.innerHTML = 'YOU FAIL: SCORE = 0'
+                // alert('You lose, Press Start Game to play again')
             }, 1000)
+            // setTimeout(function () {
+            //     continueGame.play()
+            //     let playAgain = prompt('Would you like to play again?')
+            // }, 2000)
         } else if (cpuSequence.length === playerSequence.length) {
             console.log('Right answer')
+            playerScore++
+            selectScore.innerHTML = 'CURRENT SCORE = ' + playerScore
             playerSequence = []
             setTimeout(function () {
                 pickRandomColor()
