@@ -28,6 +28,7 @@ function startGame() {
     console.log('Game has begun')
     playerSequence = []
     cpuSequence = []
+    playerScore = 0
     selectScore.innerHTML = "CURRENT SCORE = 0"
     audioStart.play()
     setTimeout(function () {
@@ -95,8 +96,10 @@ function buttonIsClicked() {
 }
 
 function compareSequences() {
+    let nextLevel = false
     for (i = 0; i < playerSequence.length; i++) {
         if (cpuSequence[i] !== playerSequence[i]) {
+            nextLevel = false
             console.log("You picked incorrectly at step " + i)
             setTimeout(function () {
                 gameEnd.play()
@@ -109,18 +112,22 @@ function compareSequences() {
             // }, 2000)
         } else if (cpuSequence.length === playerSequence.length) {
             console.log('Right answer')
-            playerScore++
-            selectScore.innerHTML = 'CURRENT SCORE = ' + playerScore
-            playerSequence = []
-            setTimeout(function () {
-                continueGame.play()
-            }, 700)
-            setTimeout(function () {
-                pickRandomColor()
-            }, 2500)
+            nextLevel = true
         }
     }
+    if (nextLevel === true) {
+        playerScore++
+        selectScore.innerHTML = 'CURRENT SCORE = ' + playerScore
+        playerSequence = []
+        setTimeout(function () {
+            continueGame.play()
+        }, 700)
+        setTimeout(function () {
+            pickRandomColor()
+        }, 2500)
+    }
 }
+
 
 function playSound() {
     if (randomColor === 'green') {
