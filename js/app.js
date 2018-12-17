@@ -22,7 +22,7 @@ const audioYellow = new Audio('../sounds/yellow_sound.mp3')
 const audioBlue = new Audio('../sounds/punch2.mp3')
 const audioRed = new Audio('../sounds/punch1.mp3')
 const gameEnd = new Audio('../sounds/you_lose.mp3')
-const continueGame = new Audio('../sounds/replay.mp3')
+const continueGame = new Audio('../sounds/ready_go.mp3')
 
 function startGame() {
     console.log('Game has begun')
@@ -100,7 +100,7 @@ function compareSequences() {
             console.log("You picked incorrectly at step " + i)
             setTimeout(function () {
                 gameEnd.play()
-                selectScore.innerHTML = 'YOU FAIL: SCORE = 0'
+                selectScore.innerHTML = 'LOSER: FINAL SCORE = ' + playerScore
                 // alert('You lose, Press Start Game to play again')
             }, 1000)
             // setTimeout(function () {
@@ -113,8 +113,11 @@ function compareSequences() {
             selectScore.innerHTML = 'CURRENT SCORE = ' + playerScore
             playerSequence = []
             setTimeout(function () {
+                continueGame.play()
+            }, 700)
+            setTimeout(function () {
                 pickRandomColor()
-            }, 1500)
+            }, 2500)
         }
     }
 }
