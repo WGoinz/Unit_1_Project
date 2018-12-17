@@ -19,10 +19,13 @@ const audioGreen = new Audio('../sounds/green_sound.mp3')
 const audioYellow = new Audio('../sounds/yellow_sound.mp3')
 const audioBlue = new Audio('../sounds/blue_sound.wav')
 const audioRed = new Audio('../sounds/red_sound.wav')
+const gameEnd = new Audio('../sounds/failed_game3.wav')
 
-async function startGame() {
-    await audioStart.play()
-    pickRandomColor()
+function startGame() {
+    audioStart.play()
+    setTimeout(function () {
+        pickRandomColor()
+    }, 3500)
 }
 
 function pickRandomColor() {
@@ -30,7 +33,12 @@ function pickRandomColor() {
     randomColor = cpuChoose[Math.floor(Math.random() * cpuChoose.length)]
     cpuSequence.push(randomColor)
     console.log('Random color selected is ' + randomColor)
-
+    for (i = 0; i < cpuSequence.length; i++) {
+        let index = i
+        setTimeout(function () {
+            showSequence(index)
+        }(i + 1) * 1000)
+    }
 }
 
 function buttonIsClicked() {
@@ -46,7 +54,7 @@ function buttonIsClicked() {
         selectedButton.classList.remove('clicked')
     }, 200)
     playerSequence.push(this.getAttribute('data-color'))
-    let check = compareSequences(playerSequence, cpuSequence)
+    let check = compareSequences()
     console.log('The check is ' + check)
 }
 
@@ -55,6 +63,7 @@ function compareSequences() {
     for (i = 0; i < playerSequence.length; i++) {
         if (cpuSequence[i] !== playerSequence[i]) {
             console.log("You picked incorrectly")
+            gameEnd.play()
         } else if (cpuSequence.length === playerSequence.length) {
             console.log('Right answer')
             pickRandomColor()
@@ -75,22 +84,24 @@ function playSound() {
 
 }
 
-function showSequence() {
-    for (i = 0; i < cpuSequence.length; i++) {
-        let selectRandom = document.getElementById(cpuSequence[i])
-        setTimeout(function () {
-            // console.log(selectRandom)
-            function addSelectedClass() {
-                selectRandom.classList.add('selected')
-            }
-            let startInterval = setInterval(addSelectedClass, 500)
-            setTimeout(function () {
-                clearInterval(startInterval)
-                selectRandom.classList.remove('selected')
-            }, (i + 1) * 1000)
-        }, 1000)
-    }
+function showSequence(index) {
+    let selectRandom = document.getElementById(cpuSequence[index])
+    selectRandom.classList.toggle('selected')
+    setTimeout(function () {
+        selectRandom.classList.toggle('selected')
+    }, 500)
+    // console.log(selectRandom)
+    // function addSelectedClass() {
+    //     selectRandom.classList.add('selected')
+    // }
+    // let startInterval = setInterval(addSelectedClass, 500)
+    // setTimeout(function () {
+    //     clearInterval(startInterval)
+    //     selectRandom.classList.remove('selected')
+    // }, (i + 1) * 1000)
+
 }
+
 
 selectGreen.addEventListener('click', buttonIsClicked)
 selectYellow.addEventListener('click', buttonIsClicked)
