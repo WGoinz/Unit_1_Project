@@ -17,15 +17,20 @@ let soundSelect
 const audioStart = new Audio('../sounds/start.mp3')
 const audioGreen = new Audio('../sounds/green_sound.mp3')
 const audioYellow = new Audio('../sounds/yellow_sound.mp3')
+const audioBlue = new Audio('../sounds/blue_sound.wav')
+const audioRed = new Audio('../sounds/red_sound.wav')
 
+async function startGame() {
+    await audioStart.play()
+    pickRandomColor()
+}
 
 function pickRandomColor() {
     console.log('Game has begun')
     randomColor = cpuChoose[Math.floor(Math.random() * cpuChoose.length)]
     cpuSequence.push(randomColor)
     console.log('Random color selected is ' + randomColor)
-    // console.log(cpuSequence)
-    showSequence()
+
 }
 
 function buttonIsClicked() {
@@ -58,6 +63,15 @@ function compareSequences() {
 }
 
 function playSound() {
+    if (randomColor === 'green') {
+        audioGreen.play()
+    } else if (randomColor === 'red') {
+        audioRed.play()
+    } else if (randomColor === 'blue') {
+        audioBlue.play()
+    } else {
+        audioYellow.play()
+    }
 
 }
 
@@ -87,4 +101,4 @@ selectBlue.addEventListener('click', buttonIsClicked)
 /* To start the game user click the start game button 
 Once clicked, the game will tell the user the game has started */
 let startButton = document.getElementById('startGameButton')
-startButton.addEventListener('click', pickRandomColor)
+startButton.addEventListener('click', startGame)
