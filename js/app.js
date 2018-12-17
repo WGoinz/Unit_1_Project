@@ -47,48 +47,17 @@ function buttonIsClicked() {
     console.log('The check is ' + check)
 }
 
-function compareSequences(player, cpu) {
-    if (player.length != cpu.length) {
-        return runStatus = false
-    }
-    for (i = 0; i < player.length; i++) {
-        let sequenceName = player[i]
-        if (player[sequenceName] !== cpu[sequenceName]) {
-            return runStatus = false
+function compareSequences() {
+
+    for (i = 0; i < playerSequence.length; i++) {
+        if (cpuSequence[i] !== playerSequence[i]) {
+            console.log("You picked incorrectly")
+        } else if (cpuSequence.length === playerSequence.length) {
+            console.log('Right answer')
+            pickAgain()
         }
     }
-    return runStatus = true
-    console.log(runStatus)
 }
-
-
-
-// function isEquivalent(a, b) {
-//     // Create arrays of property names
-//     var aProps = Object.getOwnPropertyNames(a);
-//     var bProps = Object.getOwnPropertyNames(b);
-
-//     // If number of properties is different,
-//     // objects are not equivalent
-//     if (aProps.length != bProps.length) {
-//         return false;
-//     }
-
-//     for (var i = 0; i < aProps.length; i++) {
-//         var propName = aProps[i];
-
-//         // If values of same property are not equal,
-//         // objects are not equivalent
-//         if (a[propName] !== b[propName]) {
-//             return false;
-//         }
-//     }
-
-//     // If we made it this far, objects
-//     // are considered equivalent
-//     return true;
-// }
-
 
 function showSequence() {
     for (i = 0; i < cpuSequence.length; i++) {
@@ -103,12 +72,6 @@ function showSequence() {
             selectRandom.classList.remove('selected')
         }, (i + 1) * 1000)
     }
-    // for (var i = 1; i <= 10; i++) {
-    //     (function (index) {
-    //         setTimeout(function () { alert(index); }, i * 1000);
-    //     })(i);
-    // }
-
 }
 
 selectGreen.addEventListener('click', buttonIsClicked)
