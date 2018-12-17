@@ -162,7 +162,6 @@ function compareSequences() {
             // console.log("You picked incorrectly at step " + i)
             setTimeout(function () {
                 checkHighScore()
-                flicker.classList.remove('text-flicker-in-glow')
                 flicker.style.backgroundColor = 'white'
                 document.getElementById('startGameButton').style.backgroundColor = "white"
                 gameEnd.play()
