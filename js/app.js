@@ -13,13 +13,13 @@ let cpuSequence = []
 let cpuChoose = ['green', 'red', 'blue', 'yellow']
 let randomColor
 
-let soundSelect
+
 const audioStart = new Audio('../sounds/start.mp3')
 const audioGreen = new Audio('../sounds/green_sound.mp3')
 const audioYellow = new Audio('../sounds/yellow_sound.mp3')
-const audioBlue = new Audio('../sounds/blue_sound.wav')
-const audioRed = new Audio('../sounds/red_sound.wav')
-const gameEnd = new Audio('../sounds/failed_game3.wav')
+const audioBlue = new Audio('../sounds/punch2.mp3')
+const audioRed = new Audio('../sounds/punch1.mp3')
+const gameEnd = new Audio('../sounds/you_lose.mp3')
 
 function startGame() {
     console.log('Game has begun')
@@ -34,6 +34,8 @@ function startGame() {
 function toggleClass() {
     for (i = 0; i < cpuSequence.length; i++) {
         let selectRandom = document.getElementById(cpuSequence[i])
+        console.log(selectRandom)
+
         setTimeout(function () {
             console.log(i)
 
@@ -42,8 +44,16 @@ function toggleClass() {
             setTimeout(function () {
                 selectRandom.classList.toggle('selected')
             }, 300)
-            playSound()
-        }, i * 1000)
+            if (selectRandom.getAttribute('data-color') === 'green') {
+                audioGreen.play()
+            } else if (selectRandom.getAttribute('data-color') === 'blue') {
+                audioBlue.play()
+            } else if (selectRandom.getAttribute('data-color') === 'red') {
+                audioRed.play()
+            } else if (selectRandom.getAttribute('data-color') === 'yellow') {
+                audioYellow.play()
+            }
+        }, i * 1200)
     }
 }
 
@@ -57,13 +67,23 @@ function pickRandomColor() {
     }, 1000)
 
 }
+
 function buttonIsClicked() {
+
     let selectedButton = this
     selectedButton.classList.toggle('clicked')
     setTimeout(function () {
         selectedButton.classList.toggle('clicked')
     }, 500)
-    playSound()
+    if (this.getAttribute('data-color') === 'green') {
+        audioGreen.play()
+    } else if (this.getAttribute('data-color') === 'blue') {
+        audioBlue.play()
+    } else if (this.getAttribute('data-color') === 'red') {
+        audioRed.play()
+    } else if (this.getAttribute('data-color') === 'yellow') {
+        audioYellow.play()
+    }
     playerSequence.push(this.getAttribute('data-color'))
     compareSequences()
     // let check = compareSequences()
@@ -81,7 +101,9 @@ function compareSequences() {
         } else if (cpuSequence.length === playerSequence.length) {
             console.log('Right answer')
             playerSequence = []
-            pickRandomColor()
+            setTimeout(function () {
+                pickRandomColor()
+            }, 1500)
         }
     }
 }
