@@ -25,12 +25,14 @@ const audioRed = new Audio('../sounds/punch1.mp3')
 const gameEnd = new Audio('../sounds/you_lose.mp3')
 const continueGame = new Audio('../sounds/ready_go.mp3')
 const bgm = new Audio('../sounds/actionBGM.mp3')
+const evilLaugh = new Audio('../sounds/evil_laugh.mp3')
 
 function startGame() {
-    document.getElementById('startGameButton').style.backgroundColor = "red"
     setInterval(function () {
-        flicker.classList.toggle('text-flicker-in-glow')
-    })
+        flicker.classList.add('blink-1')
+    }, 1000)
+    flicker.style.backgroundColor = 'red'
+    document.getElementById('startGameButton').style.backgroundColor = "red"
     bgm.play()
     console.log('Game has begun')
     playerSequence = []
@@ -111,8 +113,14 @@ function compareSequences() {
             nextLevel = false
             console.log("You picked incorrectly at step " + i)
             setTimeout(function () {
-                flicker.classList.toggle('text-flicker-in-glow')
+                flicker.classList.remove('text-flicker-in-glow')
+                flicker.style.backgroundColor = 'white'
+                document.getElementById('startGameButton').style.backgroundColor = "white"
                 gameEnd.play()
+                bgm.pause()
+                setTimeout(function () {
+                    evilLaugh.play()
+                }, 1500)
                 selectScore.innerHTML = 'LOSER: FINAL SCORE = ' + playerScore
                 // alert('You lose, Press Start Game to play again')
             }, 1000)
