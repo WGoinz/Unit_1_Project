@@ -28,38 +28,41 @@ function startGame() {
     audioStart.play()
     setTimeout(function () {
         pickRandomColor()
-    }, 3500)
+    }, 3000)
 }
 
-function toggleClass(index) {
-    setTimeout(function () {
-        let selectRandom = document.getElementById(cpuSequence[index])
-        selectRandom.classList.toggle('selected')
+function toggleClass() {
+    for (i = 0; i < cpuSequence.length; i++) {
+        let selectRandom = document.getElementById(cpuSequence[i])
         setTimeout(function () {
+            console.log(i)
+
+            // console.log(selectRandom)
             selectRandom.classList.toggle('selected')
-        }, 500)
-        playSound()
-    }, 500)
+            setTimeout(function () {
+                selectRandom.classList.toggle('selected')
+            }, 300)
+            playSound()
+        }, i * 1000)
+    }
 }
 
-
-function pickRandomColor(index) {
+function pickRandomColor() {
     randomColor = cpuChoose[Math.floor(Math.random() * cpuChoose.length)]
     cpuSequence.push(randomColor)
     console.log('Random color selected is ' + randomColor)
-    for (i = 0; i < cpuSequence.length; i++) {
-        let index = i
-        setTimeout(function () {
-            toggleClass(index)
-        }, 500)
-    }
+    // console.log(index)
+    setTimeout(function () {
+        toggleClass()
+    }, 1000)
+
 }
 function buttonIsClicked() {
     let selectedButton = this
     selectedButton.classList.toggle('clicked')
     setTimeout(function () {
         selectedButton.classList.toggle('clicked')
-    }, 1000)
+    }, 500)
     playSound()
     playerSequence.push(this.getAttribute('data-color'))
     compareSequences()
@@ -68,7 +71,6 @@ function buttonIsClicked() {
 }
 
 function compareSequences() {
-
     for (i = 0; i < playerSequence.length; i++) {
         if (cpuSequence[i] !== playerSequence[i]) {
             console.log("You picked incorrectly")
@@ -78,9 +80,8 @@ function compareSequences() {
             }, 1000)
         } else if (cpuSequence.length === playerSequence.length) {
             console.log('Right answer')
-            setTimeout(function () {
-                pickRandomColor()
-            }, 3000)
+            playerSequence = []
+            pickRandomColor()
         }
     }
 }
