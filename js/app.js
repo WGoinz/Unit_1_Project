@@ -5,15 +5,18 @@ let selectYellow = document.getElementById('yellow')
 let selectRed = document.getElementById('red')
 let selectBlue = document.getElementById('blue')
 
+
 let playerScore = 0
-let cpuScore = 0
 
 let playerSequence = []
-let playerChoose = []
 let cpuSequence = []
 let cpuChoose = ['green', 'red', 'blue', 'yellow']
 let randomColor
-let runStatus
+
+let soundSelect
+const audioStart = new Audio('../sounds/start.mp3')
+const audioGreen = new Audio('../sounds/green_sound.mp3')
+const audioYellow = new Audio('../sounds/yellow_sound.mp3')
 
 
 function pickRandomColor() {
@@ -23,11 +26,6 @@ function pickRandomColor() {
     console.log('Random color selected is ' + randomColor)
     // console.log(cpuSequence)
     showSequence()
-}
-
-async function pickAgain() {
-    await showSequence()
-    pickRandomColor()
 }
 
 function buttonIsClicked() {
@@ -54,23 +52,29 @@ function compareSequences() {
             console.log("You picked incorrectly")
         } else if (cpuSequence.length === playerSequence.length) {
             console.log('Right answer')
-            pickAgain()
+            pickRandomColor()
         }
     }
+}
+
+function playSound() {
+
 }
 
 function showSequence() {
     for (i = 0; i < cpuSequence.length; i++) {
         let selectRandom = document.getElementById(cpuSequence[i])
-        // console.log(selectRandom)
-        function addSelectedClass() {
-            selectRandom.classList.add('selected')
-        }
-        let startInterval = setInterval(addSelectedClass, 500)
         setTimeout(function () {
-            clearInterval(startInterval)
-            selectRandom.classList.remove('selected')
-        }, (i + 1) * 1000)
+            // console.log(selectRandom)
+            function addSelectedClass() {
+                selectRandom.classList.add('selected')
+            }
+            let startInterval = setInterval(addSelectedClass, 500)
+            setTimeout(function () {
+                clearInterval(startInterval)
+                selectRandom.classList.remove('selected')
+            }, (i + 1) * 1000)
+        }, 1000)
     }
 }
 
