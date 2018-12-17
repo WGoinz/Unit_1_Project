@@ -7,14 +7,37 @@ let selectBlue = document.getElementById('blue')
 let selectScore = document.getElementById('score')
 let flicker = document.getElementById('gameName')
 
-
-
+let easy = 1500
+let hard = 800
+let god = 150
+let difficulty = 1500
 let playerScore = 0
+let difficultyBackground
 
 let playerSequence = []
 let cpuSequence = []
 let cpuChoose = ['green', 'red', 'blue', 'yellow']
 let randomColor
+
+
+document.getElementById('easy').onclick = function () {
+    difficulty = easy
+    difficultyBackground = this
+    this.style.backgroundColor = 'red'
+
+}
+
+document.getElementById('hard').onclick = function () {
+    difficulty = hard
+    difficultyBackground = this
+    this.style.backgroundColor = 'red'
+}
+
+document.getElementById('god').onclick = function () {
+    difficulty = god
+    difficultyBackground = this
+    this.style.backgroundColor = 'red'
+}
 
 
 const audioStart = new Audio('../sounds/start.mp3')
@@ -28,6 +51,7 @@ const bgm = new Audio('../sounds/actionBGM.mp3')
 const evilLaugh = new Audio('../sounds/evil_laugh.mp3')
 
 function startGame() {
+    evilLaugh.pause()
     setInterval(function () {
         flicker.classList.add('blink-1')
     }, 1000)
@@ -69,7 +93,7 @@ function toggleClass() {
             } else if (selectRandom.getAttribute('data-color') === 'yellow') {
                 audioYellow.play()
             }
-        }, i * 800)
+        }, i * difficulty)
     }
 }
 
@@ -116,6 +140,9 @@ function compareSequences() {
                 flicker.classList.remove('text-flicker-in-glow')
                 flicker.style.backgroundColor = 'white'
                 document.getElementById('startGameButton').style.backgroundColor = "white"
+                setTimeout(function () {
+                    difficultyBackground.style.backgroundColor = "white"
+                }, 200)
                 gameEnd.play()
                 bgm.pause()
                 setTimeout(function () {
@@ -190,3 +217,5 @@ selectBlue.addEventListener('click', buttonIsClicked)
 Once clicked, the game will tell the user the game has started */
 let startButton = document.getElementById('startGameButton')
 startButton.addEventListener('click', startGame)
+
+
