@@ -3,6 +3,7 @@ body {
     background-image: url("../img/backgrounds-blank-blue-953214.jpg");
     margin: 0 auto;
     max-width: 800px;
+    width: 100%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -244,4 +245,48 @@ http://jsfiddle.net/mitrosin/xb9edv64/
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
+}
+
+@media only screen and (max-width: 500px) {
+    body {
+        width: 100%;
+        display: flex;
+        /* flex-direction: column-reverse; */
+    }
+    button {
+        font-size: 15px;
+        margin: 0px 0px;
+    }
+    #score, #highScore {
+        font-size: 15px;
+        margin: 0px 0px;
+    }
+    h1 {
+        font-size: 45px;
+        margin: 0px;
+        margin-top: 35px;
+    }
+    #difficulty {
+        margin-top: 20px;
+        font-size: 25px;
+    }
+    .quarter-circle-bottom-left {
+        width: 150px;
+        height: 150px;
+    }
+    .quarter-circle-bottom-right {
+        width: 150px;
+        height: 150px;
+    }
+    .quarter-circle-top-left {
+        width: 150px;
+        height: 150px;
+    }
+    .quarter-circle-top-right {
+        width: 150px;
+        height: 150px;
+    }
+    .skill {
+        font-size: 30px;
+    }
 }
