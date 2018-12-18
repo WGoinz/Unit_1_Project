@@ -8,6 +8,7 @@ let selectRed = document.getElementById('red')
 let selectBlue = document.getElementById('blue')
 let selectScore = document.getElementById('score')
 let flicker = document.getElementById('gameName')
+let liveGame = false
 
 let easy = 1500
 let hard = 800
@@ -42,16 +43,23 @@ document.getElementById('easy').onclick = function () {
     difficulty = easy
     difficultyBackground = this
     this.style.backgroundColor = 'red'
+    document.getElementById('hard').style.backgroundColor = 'white'
+    document.getElementById('god').style.backgroundColor = 'white'
+
 }
 document.getElementById('hard').onclick = function () {
     difficulty = hard
     difficultyBackground = this
     this.style.backgroundColor = 'red'
+    document.getElementById('easy').style.backgroundColor = 'white'
+    document.getElementById('god').style.backgroundColor = 'white'
 }
 document.getElementById('god').onclick = function () {
     difficulty = god
     difficultyBackground = this
     this.style.backgroundColor = 'red'
+    document.getElementById('hard').style.backgroundColor = 'white'
+    document.getElementById('easy').style.backgroundColor = 'white'
 }
 
 /* Start Game function. This is only called when the game is started
@@ -59,6 +67,7 @@ The pickRandomColor function is the main function of this program
  */
 
 function startGame() {
+    liveGame = true
     evilLaugh.pause()
     setInterval(function () {
         flicker.classList.add('blink-1')
@@ -133,7 +142,7 @@ function buttonIsClicked() {
     selectedButton.classList.toggle('clicked')
     setTimeout(function () {
         selectedButton.classList.toggle('clicked')
-    }, 500)
+    }, 400)
     if (this.getAttribute('data-color') === 'green') {
         audioGreen.play()
     } else if (this.getAttribute('data-color') === 'blue') {
@@ -143,8 +152,10 @@ function buttonIsClicked() {
     } else if (this.getAttribute('data-color') === 'yellow') {
         audioYellow.play()
     }
-    playerSequence.push(this.getAttribute('data-color'))
-    compareSequences()
+    if (liveGame === true) {
+        playerSequence.push(this.getAttribute('data-color'))
+        compareSequences()
+    }
     // let check = compareSequences()
     // console.log('The check is ' + check)
 }
@@ -161,6 +172,7 @@ function compareSequences() {
             nextLevel = false
             // console.log("You picked incorrectly at step " + i)
             setTimeout(function () {
+                liveGame = false
                 checkHighScore()
                 flicker.style.backgroundColor = 'white'
                 document.getElementById('startGameButton').style.backgroundColor = "white"
