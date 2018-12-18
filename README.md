@@ -43,6 +43,9 @@ Different from final project
 * Give users a choice of songs to play in the background
 * **SILENT MODE**
 
+## Trello
+https://trello.com/b/EfBYKeJ0/simon-says
+
 ## Sounds
 1. Evil Laugh - https://www.youtube.com/watch?v=1P526n6wfP4
 2. Action BGM - https://www.youtube.com/watch?v=tZ5FodI0CYE
