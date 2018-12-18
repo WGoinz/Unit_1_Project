@@ -9,6 +9,7 @@ let selectBlue = document.getElementById('blue')
 let selectScore = document.getElementById('score')
 let flicker = document.getElementById('gameName')
 let liveGame = false
+let computerTurn = false
 
 let easy = 1500
 let hard = 800
@@ -67,6 +68,7 @@ The pickRandomColor function is the main function of this program
  */
 
 function startGame() {
+    computerTurn = true
     liveGame = true
     evilLaugh.pause()
     setInterval(function () {
@@ -119,11 +121,18 @@ function toggleClass() {
             }
         }, i * difficulty)
     }
-}
+    setTimeout(function () {
+        setComputerFalse()
+    }, 1000 * cpuSequence.length)
 
+}
+function setComputerFalse() {
+    computerTurn = false
+}
 /* Selects a random color from the original cpuChoose array */
 
 function pickRandomColor() {
+    computerTurn = true
     randomColor = cpuChoose[Math.floor(Math.random() * cpuChoose.length)]
     cpuSequence.push(randomColor)
     // console.log('Random color selected is ' + randomColor)
@@ -138,23 +147,25 @@ Based off of this class, it plays a specific audio file related to that class
 Calls the compareSequences function at the end */
 
 function buttonIsClicked() {
-    let selectedButton = this
-    selectedButton.classList.toggle('clicked')
-    setTimeout(function () {
+    if (computerTurn === false) {
+        let selectedButton = this
         selectedButton.classList.toggle('clicked')
-    }, 400)
-    if (this.getAttribute('data-color') === 'green') {
-        audioGreen.play()
-    } else if (this.getAttribute('data-color') === 'blue') {
-        audioBlue.play()
-    } else if (this.getAttribute('data-color') === 'red') {
-        audioRed.play()
-    } else if (this.getAttribute('data-color') === 'yellow') {
-        audioYellow.play()
-    }
-    if (liveGame === true) {
-        playerSequence.push(this.getAttribute('data-color'))
-        compareSequences()
+        setTimeout(function () {
+            selectedButton.classList.toggle('clicked')
+        }, 400)
+        if (this.getAttribute('data-color') === 'green') {
+            audioGreen.play()
+        } else if (this.getAttribute('data-color') === 'blue') {
+            audioBlue.play()
+        } else if (this.getAttribute('data-color') === 'red') {
+            audioRed.play()
+        } else if (this.getAttribute('data-color') === 'yellow') {
+            audioYellow.play()
+        }
+        if (liveGame === true) {
+            playerSequence.push(this.getAttribute('data-color'))
+            compareSequences()
+        }
     }
     // let check = compareSequences()
     // console.log('The check is ' + check)
@@ -167,6 +178,7 @@ a new round is started */
 
 function compareSequences() {
     let nextLevel = false
+
     for (i = 0; i < playerSequence.length; i++) {
         if (cpuSequence[i] !== playerSequence[i]) {
             nextLevel = false
@@ -188,6 +200,7 @@ function compareSequences() {
         } else if (cpuSequence.length === playerSequence.length) {
             // console.log('Right answer')
             nextLevel = true
+            setComputerFalse()
         }
     }
     if (nextLevel === true) {
