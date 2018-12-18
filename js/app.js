@@ -2,21 +2,26 @@
 
 /* Declare variables that will be used in the project */
 
-let selectGreen = document.getElementById('green')
-let selectYellow = document.getElementById('yellow')
-let selectRed = document.getElementById('red')
-let selectBlue = document.getElementById('blue')
+const selectGreen = document.getElementById('green')
+const selectYellow = document.getElementById('yellow')
+const selectRed = document.getElementById('red')
+const selectBlue = document.getElementById('blue')
 let selectScore = document.getElementById('score')
 let flicker = document.getElementById('gameName')
+
+/* Prevents Game from pushing values to the playerSequence array if liveGame is false */
 let liveGame = false
+
+/* Prevents the user from clicking the sequence during the computer's turn */
 let computerTurn = false
 
-let easy = 1500
-let hard = 800
-let god = 150
+const easy = 1500
+const hard = 800
+const god = 150
 let difficulty = 1500
 let playerScore = 0
 let highScore = 0
+
 let difficultyBackground
 
 /* Setup empty arrays and establish the array for Random Colors to be chosen*/
@@ -36,6 +41,7 @@ const audioRed = new Audio('../sounds/punch1.mp3')
 const gameEnd = new Audio('../sounds/you_lose.mp3')
 const continueGame = new Audio('../sounds/ready_go.mp3')
 const bgm = new Audio('../sounds/actionBGM.mp3')
+bgm.volume = 0.5
 const evilLaugh = new Audio('../sounds/evil_laugh.mp3')
 
 /* Setup logic for choosing which difficulty the player wants */
@@ -68,6 +74,7 @@ The pickRandomColor function is the main function of this program
  */
 
 function startGame() {
+    bgm.load()
     computerTurn = true
     liveGame = true
     evilLaugh.pause()
